@@ -41,8 +41,7 @@
     function Cart(table) {
 
         function updateSubtotal(line) {
-            var qty = line.getElementsByClassName("quantity")[0];
-            var quantity = parseFloat(qty.value);
+            var quantity = parseFloat(line.getElementsByClassName("quantity")[0].value);
             var price = parseFloat(line.getElementsByClassName("price-each")[0].innerHTML);
             var subtotal = quantity * price;
             var subtotalElement = line.getElementsByClassName("subtotal")[0];
