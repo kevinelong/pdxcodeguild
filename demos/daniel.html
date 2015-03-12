@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="suite-directory">
+    <div id="directory-links"></div>
+    <!--<a href="#" id="dir-link-a" class="directory-link">A</a>-->
+    <ul id="list-a">
+        <li>
+
+        </li>
+    </ul>
+</div>
+
+<script>
+//    var tenants = [
+//        {"name": "Ashton K.",
+//        "suite": "123"},
+//        {"name": "Dan W.",
+//        "suite": "999"},
+//        {"name": "David H.",
+//        "suite": "456"},
+//        {"name": "Danny T.",
+//        "suite": "555"},
+//        {"name": "Bruce D.",
+//        "suite": "666"},
+//        {"name": "Brad T.",
+//        "suite": "432"},
+//        {"name": "Bethany K.",
+//        "suite": "686"},
+//        {"name": "Brittany S.",
+//        "suite": "567"}
+//        ];
+
+tenants = [
+        {
+            "name": "Kevin Long",
+            "suite": 111
+        },
+        {
+            "name": "Kay Long",
+            "suite": 112
+        },
+        {
+            "name": "John Long",
+            "suite": 113
+        },
+        {
+            "name": "Jack Richards",
+            "suite": 211
+        },
+        {
+            "name": "Arthur Wright",
+            "suite": 212
+        },
+        {
+            "name": "abc",
+            "suite": 123
+        },
+        {
+            "name": "31 flavors",
+            "suite": 231
+        },
+        {
+            "name": "!@#$%^&*()",
+            "suite": 213
+        }
+    ];
+
+    function groupTenantsByFirstInitial(tenants) {
+        var directory = [];
+        for (var i = 0; i < tenants.length; i++) {
+            var tenant = tenants[i];
+            var tenant_first_initial = tenant.name.charAt(0);
+            if (!tenant_first_initial.match(/^[a-zA-Z]+$/)) {
+                tenant_first_initial = "*";
+            } else {
+                tenant_first_initial = tenant_first_initial.toUpperCase();
+            }
+            if(directory.hasOwnProperty(tenant_first_initial)) {
+                directory[tenant_first_initial].push({"name":tenant.name, "suite":tenant.suite})
+            } else {
+                directory[tenant_first_initial] = [];
+                directory[tenant_first_initial].push({"name":tenant.name, "suite":tenant.suite})
+            }
+        }
+        return sortArrayByKeyAlphabetically(directory);
+    }
+
+    function sortNamesInDirectory(dir) {
+        for (var key in dir) {
+            var sub_directory = dir[key];
+            sub_directory.sort(function (a, b) {
+                var name1 = a.name.toUpperCase();
+                var name2 = b.name.toUpperCase();
+                return (name1 < name2) ? -1 : (name1 > name2) ? 1 : 0;
+            });
+            //dir[key] = sub_directory;
+        }
+        //return dir;
+    }
+
+    function sortArrayByKeyAlphabetically(array) {
+        var sortedKeys = [];
+        var sortedObj = {};
+        for (var i in array){
+            sortedKeys.push(i);
+        }
+        sortedKeys.sort();
+        for (var i in sortedKeys){
+            sortedObj[sortedKeys[i]] = array[sortedKeys[i]];
+        }
+       return sortedObj;
+    }
+
+    var directory = groupTenantsByFirstInitial(tenants);
+
+    console.log("Initial directory:")
+    console.log(directory);
+
+
+    //var sortedDirectory = sortNamesInDirectory(directory);
+sortNamesInDirectory(directory);
+    console.log("Sorted Directory:");
+    console.log(directory);
+    //console.log(sortedDirectory);
+
+
+
+
+var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ*';
+var alpha_array = alphabet.split('').sort();
+
+function directoryLinksHtml(directory) {
+
+    var links = '';
+    for (var key in alpha_array) {
+        var letter = alpha_array[key];
+        var link;
+        if( directory.hasOwnProperty(letter)){
+            var count = directory[letter].length;
+            link = '<a href="#" id="dir-link-'+letter+'" class="dir-link">'+letter+'</a>('+count+')';
+        } else {
+            link = '<span class="no-entries">' + letter+'</span>';
+        }
+        links += link;
+    }
+    return links;
+}
+
+
+var directory_links_div = document.getElementById('directory-links');
+    directory_links_div.innerHTML = directoryLinksHtml(directory);
+
+var dir_links = document.getElementsByClassName("dir-link");
+
+for(letter in alpha_array){
+    var element = document.getElementById('dir-link-'+letter);
+
+}
+    for (var link in dir_links){
+
+    }
+
+
+
+
+
+
+</script>
+</body>
+</html>
