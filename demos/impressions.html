@@ -1,0 +1,60 @@
+<body>
+<script>
+    var advertClicks = [
+        {
+            "url": "b.example.com",
+            "date": "2015-11-22 11:11:11"
+        },
+        {
+            "url": "c.example.com",
+            "date": "2015-11-22 11:11:11"
+        },
+        {
+            "url": "a.example.com",
+            "date": "2015-11-22 11:11:11"
+        },
+        {
+            "url": "a.example.com",
+            "date": "2015-11-22 22:22:22"
+        },
+        {
+            "url": "a.example.com",
+            "date": "2015-12-22 11:11:11"
+        },
+        {
+            "url": "a.example.com",
+            "date": "2015-12-22 22:22:22"
+        }
+    ];
+
+    var days = {};
+
+    for (var i = 0; i < advertClicks.length; i++) {
+        var item = advertClicks[i];
+        var date = item.date.split(" ")[0];
+        if (!days.hasOwnProperty(date)) {
+            days[date] = {};
+        }
+        var day = days[date];
+        if (!day.hasOwnProperty(item.url)) {
+            day[item.url] = {clicks: 0};
+        }
+        var properties = day[item.url];
+        properties.clicks++;
+    }
+
+    for (var dayKey in days) {
+        var dayObject = days[dayKey];
+        for (var urlKey in dayObject) {
+            var properties = dayObject[urlKey];
+            document.write(dayKey + " " + urlKey + " " + properties.clicks + "<br>");
+        }
+    }
+    // the last iteration's "properties.clicks",
+    // from inside the center of the for loop,
+    // is equivalent to:
+    document.write(days["2015-11-22"]["c.example.com"].clicks);
+    //Which would be preferable if we knew they keys in advance.
+
+</script>
+</body>
